@@ -11,9 +11,8 @@ COPY        server.js ./
 # Prepare the final image to ensure the least number of layers. This
 # aids with faster deployments and allows for the smallest size possible.
 FROM        node:24.0.2-alpine as deployable
-RUN         mkdir -p /apps/devops-coursework
 WORKDIR    /apps/devops-coursework
 COPY        --from=builder server.js ./
-EXPOSE      3000
+EXPOSE      8081
 
 CMD         ["node", "server.js"]
