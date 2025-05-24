@@ -1,0 +1,8 @@
+pipeline {
+
+    options {
+        disableConcurrentBuilds()
+        timestamps()
+    }
+
+}
