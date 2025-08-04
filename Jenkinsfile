@@ -21,9 +21,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                script {
-                    app = docker.build('mpirouet/cw2-server')
-                }
+                sh 'docker build -t mpirouet/cw2-server .'
             }
         }
         stage('Test Image') {
