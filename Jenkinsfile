@@ -40,7 +40,6 @@ pipeline {
                 sh 'git commit -m "Bump version to $(jq -r .version package.json)"'
                 sh 'git push origin main'
             }
-
         }
         stage('Push to Docker Hub') {
             steps {
@@ -58,7 +57,6 @@ pipeline {
                     sh 'ssh ubuntu@172.31.33.75'
                     sh 'hostname'
                 }
-                sh ''
             }
         }
     }
