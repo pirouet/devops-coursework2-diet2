@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', 'docker-hub-credentials') {
-                        sh 'mpirouet/cw2-server:"$(jq -r .version package.json)"'
+                        sh 'docker push mpirouet/cw2-server:"$(jq -r .version package.json)"'
                     }
                 }
 
