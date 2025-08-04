@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Test Image') {
             steps {
-                echo 'Testing..'
+                sh "docker exec -it cw2-server sh -c 'echo testing...'"
             }
         }
         stage('Bump Version') {
