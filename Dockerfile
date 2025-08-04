@@ -19,4 +19,3 @@ COPY        --from=builder server.js ./
 EXPOSE      8081
 
 CMD         ["node", "server.js"]
-
