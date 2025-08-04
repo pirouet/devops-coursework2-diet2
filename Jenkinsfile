@@ -28,7 +28,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    dockerImage = docker.build registry + ":$(jq -r .version package.json)"
+                    dockerImage = docker.build registry + ':"$(jq -r .version package.json)"'
                 }
             }
         }
