@@ -44,6 +44,10 @@ pipeline {
             }
         }
         stage('Deploy to Kubernetes') {
+
+            sshagent(credentials: ['prd-ssh-key']) {
+                sh 'hostname'
+            }
             steps {
                 echo 'Testing..'
             }
