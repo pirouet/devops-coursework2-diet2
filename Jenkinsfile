@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Test Image') {
             steps {
-                sh 'docker run -d --name cw2-server -p 8081:8081 mpirouet/cw2-server'
+                sh 'docker run -d --name cw2-server -p 8081:8081 mpirouet/cw2-server:"$(jq -r .version package.json)"'
                 sh 'echo "$(docker exec -it cw2-server sh -c echo)"'
                 sh "curl -f http://localhost:8081"
             }
