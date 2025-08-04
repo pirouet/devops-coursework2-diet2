@@ -34,8 +34,9 @@ pipeline {
         }
         stage('Test Image') {
             steps {
-                sh 'docker run -d --name cw2-server -p 3000:3000 cw2-server'
-                sh 'echo "$(docker exec -it cw2-server sh -c echo "testing...")"'
+                sh 'docker run -d --name cw2-server -p 8081:8081 cw2-server'
+                sh 'echo "$(docker exec -it cw2-server sh -c echo)"'
+                sh "curl -f http://localhost:8081"
             }
         }
         stage('Bump Version') {
