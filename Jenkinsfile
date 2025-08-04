@@ -49,9 +49,11 @@ pipeline {
         }
         stage('Push to Docker Hub') {
             steps {
-                docker.withRegistry() {
-                    app.push('$(jq -r .version package.json)')
-                    app.push('latest')
+                script {}
+                    docker.withRegistry() {
+                        app.push('$(jq -r .version package.json)')
+                        app.push('latest')
+                    }
                 }
             }
         }
