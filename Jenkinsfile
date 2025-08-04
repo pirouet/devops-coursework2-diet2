@@ -36,7 +36,7 @@ pipeline {
                 sh 'npm version patch'
                 sh 'git add package.json'
                 sh 'git commit -a -m "Bump version to $(jq -r .version package.json)"'
-                sh 'git push origin refs/removes/origin/main'
+                sh 'git push origin refs/remotes/origin/main'
             }
         }
         stage('Push to Docker Hub') {
