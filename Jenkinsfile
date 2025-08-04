@@ -38,8 +38,6 @@ pipeline {
                         sh 'docker push mpirouet/cw2-server:"$(jq -r .version package.json)"'
                     }
                 }
-
-                sh 'docker push'
             }
         }
         stage('Deploy to Kubernetes') {
