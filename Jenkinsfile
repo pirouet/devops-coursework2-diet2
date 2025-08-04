@@ -1,11 +1,5 @@
 pipeline {
 
-    environment {
-        registry = 'mpirouet/cw2-server'
-        registryCredentials = 'docker-hub-credentials'
-        dockerImage = ''
-    }
-
     agent any
 
     // Define when to check for changes
@@ -27,9 +21,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                script {
-                    dockerImage = docker.build registry + ':"$(jq -r .version package.json)"'
-                }
+                sh 'docker build -t mpirouet/cw2-server:"$(jq -r .version package.json)" .'
             }
         }
         stage('Test Image') {
@@ -43,9 +35,11 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', 'docker-hub-credentials') {
-                        dockerImage.push()
+                        sh 'mpirouet/cw2-server:"$(jq -r .version package.json)"'
                     }
                 }
+
+                sh 'docker push'
             }
         }
         stage('Deploy to Kubernetes') {
