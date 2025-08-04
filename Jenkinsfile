@@ -27,7 +27,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    sh 'docker build -t cw2-server .'
+                    app = docker.build('mpirouet/cw2-server')
                 }
             }
         }
@@ -38,9 +38,21 @@ pipeline {
                 sh "curl -f http://localhost:8081"
             }
         }
+        stage('Bump version') {
+            steps {
+                sh 'npm version minor'
+                sh 'git add package.json'
+                sh 'git commit -m "Bump version to $(jq -r .version package.json)"'
+                sh 'git push origin main'
+            }
+
+        }
         stage('Push to Docker Hub') {
             steps {
-                sh "echo testing"
+                docker.withRegistry() {
+                    app.push('$(jq -r .version package.json)')
+                    app.push('latest')
+                }
             }
         }
         stage('Deploy to Kubernetes') {
@@ -49,7 +61,7 @@ pipeline {
                     sh 'ssh ubuntu@172.31.33.75'
                     sh 'hostname'
                 }
-                echo 'Testing..'
+                sh ''
             }
         }
     }
@@ -57,6 +69,7 @@ pipeline {
     post {
         always {
             // Always clean up resources and purge images once finished
+            sh 'docker stop cw2-server'
             sh 'docker builder prune -f && docker system prune -af'
         }
         success {
