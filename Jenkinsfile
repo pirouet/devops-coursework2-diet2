@@ -45,7 +45,7 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    docker.withRegistry() {
+                    docker.withRegistry('', 'docker-hub-credentials') {
                         app.push('$(jq -r .version package.json)')
                         app.push('latest')
                     }
