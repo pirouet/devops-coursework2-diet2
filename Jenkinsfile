@@ -33,10 +33,10 @@ pipeline {
         }
         stage('Bump version') {
             steps {
-                sh 'npm version minor'
+                sh 'npm version patch'
                 sh 'git add package.json'
                 sh 'git commit -m "Bump version to $(jq -r .version package.json)"'
-                sh 'git push origin main'
+                sh 'git push origin refs/removes/origin/main'
             }
         }
         stage('Push to Docker Hub') {
