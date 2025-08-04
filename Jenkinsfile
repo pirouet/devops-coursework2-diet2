@@ -28,7 +28,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    sh 'docker build -t myapp:latest .'
+                    sh 'docker build -t cw2-server .'
                 }
             }
         }
