@@ -40,8 +40,7 @@ pipeline {
         }
         stage('Push to Docker Hub') {
             steps {
-                docker.withRegistry() {
-                }
+                sh "echo testing"
             }
         }
         stage('Deploy to Kubernetes') {
