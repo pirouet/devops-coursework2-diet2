@@ -44,11 +44,7 @@ pipeline {
             steps {
                 sshagent(credentials: ['prd-ssh-key']) {
                     sh '''
-                        ssh -t ubuntu@172.31.33.75
-                        whoami
-                        kubectl set image deployments/cw2-server cw2-server=mpirouet/cw2-server:"$(jq -r .version package.json)"
-                        kubectl rollout status deployments/cw2-server
-                        EOF
+                        ssh ubuntu@172.31.33.75 "kubectl set image deployments/cw2-server cw2-server=mpirouet/cw2-server:"$(jq -r .version package.json)" && kubectl rollout status deployments/cw2-server"
                     '''
                 }
             }
