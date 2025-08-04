@@ -14,19 +14,33 @@ pipeline {
     }
 
     stages() {
-        stage('Prepare') {
+        stage('Checkout') {
             steps {
                 checkout scm
             }
         }
+        stage("Refresh Docker") {
+            steps {
+                sh 'if [[ -n "$(docker container ls -aq)" ]]; then docker container stop $(docker container ls -aq); fi \
+                && docker builder prune -f && docker system prune -af'
+            }
+        }
         stage('Build Image') {
             steps {
-                echo 'Testing..'
+                script {
+                    sh 'docker build -t myapp:latest .'
+                }
             }
         }
         stage('Test Image') {
             steps {
                 echo 'Testing..'
+            }
+        }
+        stage('Bump Version') {
+            steps {
+                sh 'npm version patch --git-tag-version false && NODE_VERSION=$(jq -r .version package.json)'
+                sh 'echo "New version: $NODE_VERSION"'
             }
         }
         stage('Push to Docker Hub') {
@@ -39,6 +53,12 @@ pipeline {
                 echo 'Testing..'
             }
         }
+        stage('Commit Version') {
+        steps {}
+            script {
+                sh 'git add package.json && git commit -m "Bump version" && git push'
+            }
+        }
     }
 
     post {
@@ -48,11 +68,11 @@ pipeline {
         }
         success {
             steps {
-                echo 'Testing..'
+                echo 'Build and deployment successful!'
             }
         }
         failure {
-            sh "echo 'Build failed!'"
+            sh "Build and Deployment Failed!"
         }
 
     }
