@@ -6,7 +6,7 @@ pipeline {
     // Based on documentation, found at:
     // https://www.jenkins.io/doc/book/pipeline/syntax/#triggers
     triggers {
-        pollSCM('H/1 * * * *')
+        pollSCM('* * * * *')
     }
 
     options {
@@ -40,7 +40,8 @@ pipeline {
         }
         stage('Push to Docker Hub') {
             steps {
-                echo 'Testing..'
+                docker.withRegistry() {
+                }
             }
         }
         stage('Deploy to Kubernetes') {
