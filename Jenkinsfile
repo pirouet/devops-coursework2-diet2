@@ -52,9 +52,7 @@ pipeline {
             }
         }
         failure {
-            steps {
-                echo 'Testing..'
-            }
+            sh "echo 'Build failed!'"
         }
 
     }
