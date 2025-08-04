@@ -1,0 +1,21 @@
+{
+  "name": "devops-coursework2-diet2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pirouet/devops-coursework2-diet2.git"
+  },
+  "keywords": [],
+  "author": "Michael Pirouet <mpirou300@caledonian.ac.uk>",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/pirouet/devops-coursework2-diet2/issues"
+  },
+  "homepage": "https://github.com/pirouet/devops-coursework2-diet2#readme"
+}
