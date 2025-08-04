@@ -38,12 +38,6 @@ pipeline {
                 sh "curl -f http://localhost:8081"
             }
         }
-        stage('Bump Version') {
-            steps {
-                sh 'npm version patch --git-tag-version false && NODE_VERSION=$(jq -r .version package.json)'
-                sh 'echo "New version: $NODE_VERSION"'
-            }
-        }
         stage('Push to Docker Hub') {
             steps {
                 echo 'Testing..'
@@ -52,11 +46,6 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 echo 'Testing..'
-            }
-        }
-        stage('Commit Version') {
-            steps {
-                sh 'git add package.json && git commit -m "Bump version" && git push origin main'
             }
         }
     }
