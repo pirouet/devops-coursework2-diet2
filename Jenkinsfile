@@ -61,10 +61,10 @@ pipeline {
             sh 'docker builder prune -f && docker system prune -af'
         }
         success {
-            echo 'Build and deployment successful!'
+            sh 'echo "Build and deployment successful!"'
         }
         failure {
-            sh "Build and Deployment Failed!"
+            sh 'echo "Build and Deployment Failed!"'
         }
 
     }
