@@ -21,8 +21,7 @@ pipeline {
         }
         stage("Refresh Docker") {
             steps {
-                sh 'if [[ -n "$(docker container ls -aq)" ]]; then docker container stop $(docker container ls -aq); fi \
-                && docker builder prune -f && docker system prune -af'
+                sh 'if [[ -n "$(docker container ls -aq)" ]]; then docker container stop $(docker container ls -aq); fi && docker builder prune -f && docker system prune -af'
             }
         }
         stage('Build Image') {
