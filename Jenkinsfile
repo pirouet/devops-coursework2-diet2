@@ -1,5 +1,9 @@
 pipeline {
 
+    environment {
+        imageVersion = ''
+    }
+
     agent any
 
     // Define when to check for changes
@@ -17,6 +21,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
+                imageVersion = sh(script: 'jq -r .version package.json', returnStdout: true).trim()
             }
         }
         stage('Build Image') {
@@ -44,7 +49,8 @@ pipeline {
             steps {
                 sshagent(credentials: ['prd-ssh-key']) {
                     sh 'ssh ubuntu@172.31.33.75'
-                    sh 'kubectl set image deployments/cw2-server cw2-server=mpirouet/cw2-server:"$(jq -r .version package.json)"'
+                    sh 'whoami'
+                    sh 'kubectl set image deployments/cw2-server cw2-server=mpirouet/cw2-server:' + imageVersion
                     sh 'kubectl rollout status deployments/cw2-server'
                 }
             }
