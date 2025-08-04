@@ -2,13 +2,6 @@ pipeline {
 
     agent any
 
-    // Define when to check for changes
-    // Based on documentation, found at:
-    // https://www.jenkins.io/doc/book/pipeline/syntax/#triggers
-    triggers {
-        pollSCM('* * * * *')
-    }
-
     options {
         disableConcurrentBuilds()
     }
