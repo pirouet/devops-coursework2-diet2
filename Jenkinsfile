@@ -13,10 +13,6 @@ pipeline {
         disableConcurrentBuilds()
     }
 
-    parameters {
-
-    }
-
     stages() {
         stage('Prepare') {
             steps {
@@ -51,8 +47,14 @@ pipeline {
             sh 'docker builder prune -f && docker system prune -af'
         }
         success {
+            steps {
+                echo 'Testing..'
+            }
         }
         failure {
+            steps {
+                echo 'Testing..'
+            }
         }
 
     }
