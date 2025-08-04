@@ -36,6 +36,7 @@ pipeline {
             steps {
                 sh 'docker run -d --name cw2-server -p 3000:3000 cw2-server'
                 sh 'echo "$(docker exec -it cw2-server sh -c echo "testing...")"'
+            }
         }
         stage('Bump Version') {
             steps {
