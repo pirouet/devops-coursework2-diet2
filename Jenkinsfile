@@ -19,14 +19,29 @@ pipeline {
 
     stages() {
         stage('Prepare') {
+            steps {
+                checkout scm
+            }
         }
         stage('Build Image') {
+            steps {
+                echo 'Testing..'
+            }
         }
         stage('Test Image') {
+            steps {
+                echo 'Testing..'
+            }
         }
         stage('Push to Docker Hub') {
+            steps {
+                echo 'Testing..'
+            }
         }
         stage('Deploy to Kubernetes') {
+            steps {
+                echo 'Testing..'
+            }
         }
     }
 
