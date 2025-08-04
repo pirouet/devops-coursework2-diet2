@@ -54,8 +54,9 @@ pipeline {
             }
         }
         stage('Commit Version') {
-        steps {
-            sh 'git add package.json && git commit -m "Bump version" && git push'
+            steps {
+                sh 'git add package.json && git commit -m "Bump version" && git push'
+            }
         }
     }
 
