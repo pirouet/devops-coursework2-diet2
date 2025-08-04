@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Test Image') {
             steps {
-                sh 'docker run -d --name cw2-server -p 8081:8081 cw2-server'
+                sh 'docker run -d --name mpirouet/cw2-server -p 8081:8081 cw2-server'
                 sh 'echo "$(docker exec -it cw2-server sh -c echo)"'
                 sh "curl -f http://localhost:8081"
             }
